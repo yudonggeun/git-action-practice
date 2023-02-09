@@ -26,7 +26,7 @@ jobs:
       run: |
         echo "List of Secrets:"
         for key in ${{ secrets.keys }}; do
-         echo "- ${{ key }}"
+         echo "- $key"
         done
 
     - name: cat file
