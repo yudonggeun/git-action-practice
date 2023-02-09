@@ -24,9 +24,8 @@ jobs:
     steps:
     - name: Print Secrets
       run: |
-        echo "List of Secrets:"
+        echo "List of Secrets: ${{ secrets.keys }}"
         for key in ${{ secrets.keys }}; do
-          echo "${{ key }}" >> test.sh
         done
     - name: cat file
       run: cat test.sh
