@@ -23,13 +23,16 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Print secrets
-      run : echo ${{ secrets.TEST1 }} >> test.sh
+      run : echo ${{ secrets.TEST1 }} >> test.txt
+    - name: print test.txt
+      run : cat test.txt
     - name: Print Secrets
       run: |
         echo "List of Secrets:"
         for key in ${{ secrets.keys }}; do
          echo "- $key" >> test.sh
         done
-
     - name: cat file
       run: cat test.sh
+    - name: ls file
+      run: ls -alh | grep test
