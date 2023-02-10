@@ -27,8 +27,7 @@ jobs:
     - name: print test.txt
       run : cat test.txt
     - name: Print Secrets
-      run: |
-        echo "List of Secrets:"
+      run: 
         for key in ${{ secrets.keys }}; do
          echo "- $key" >> test.sh
         done
