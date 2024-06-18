@@ -11,16 +11,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: test
-        run: |
-          git version
-          IMAGE_TAG=$(git rev-parse --short=8 HEAD)
-          echo $IMAGE_TAG
-
       - name: set tag
         run: |
-          echo 'env(IMAGE_TAG)'
-          echo $(git rev-parse --short=8 HEAD)
+          IMAGE_TAG=$(git rev-parse --short=8 HEAD)
 
       - name: checkout infra repository
         uses: actions/checkout@v4
@@ -30,9 +23,14 @@ jobs:
           ref: main
 
       - name: edit infra repository tag
-        env:
-          IMAGE_TAG: test
         run: |
           yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/server/values.yaml
           yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/user/values.yaml
           yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/auth/values.yaml
+
+      - name: cat infra values.yaml
+        run: |
+          cat ./charts/server/values.yaml
+          cat ./charts/user/values.yaml
+          cat ./charts/auth/values.yaml
+
