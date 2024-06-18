@@ -14,7 +14,7 @@ jobs:
       - name: set tag
         run: |
           echo ${ls}
-          echo "${git rev-parse --short=8 HEAD}" >> $IMAGE_TAG
+          echo ${git rev-parse --short=8 HEAD} >> $IMAGE_TAG
           echo "image tag=$IMAGE_TAG"
 
       - name: checkout infra repository
