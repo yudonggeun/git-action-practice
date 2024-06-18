@@ -14,11 +14,13 @@ jobs:
       - name: test
         run: |
           git version
-          git rev-parse --short=8 HEAD
+          IMAGE_TAG=$(git rev-parse --short=8 HEAD)
+          echo $IMAGE_TAG
 
       - name: set tag
         run: |
-          echo ${git rev-parse --short=8 HEAD} >> $IMAGE_TAG
+          echo $(git rev-parse --short=8 HEAD) >> $IMAGE_TAG
+          echo $IMAGE_TAG
           echo "image tag=$IMAGE_TAG"
 
       - name: checkout infra repository
