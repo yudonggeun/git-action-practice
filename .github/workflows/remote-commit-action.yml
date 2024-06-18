@@ -19,6 +19,7 @@ jobs:
 
       - name: set tag
         run: |
+          echo 'env(IMAGE_TAG)'
           echo $(git rev-parse --short=8 HEAD)
 
       - name: checkout infra repository
