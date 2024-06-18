@@ -1,0 +1,32 @@
+name: remote commit action practice
+
+on: 
+  push:
+    branches: [ master ]
+
+jobs:
+  tagging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: set tag
+        run: |
+          git rev-parse --short=8 HEAD >> $IMAGE_TAG
+          echo "image tag=$IMAGE_TAG"
+
+      - name: checkout infra repository
+        uses: actions/checkout@v4
+        with:
+          repository: kSideProject/kpring-infra
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ref: main
+
+      - name: edit infra repository tag
+        env:
+          IMAGE_TAG: test
+        run: |
+          yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/server/values.yaml
+          yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/user/values.yaml
+          yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/auth/values.yaml
