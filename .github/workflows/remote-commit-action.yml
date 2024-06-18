@@ -15,6 +15,9 @@ jobs:
         run: |
           IMAGE_TAG=$(git rev-parse --short=8 HEAD)
 
+      - name: before test
+        run: echo 'env(IMAGE_TAG)'
+
       - name: checkout infra repository
         uses: actions/checkout@v4
         with:
