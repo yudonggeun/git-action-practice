@@ -13,10 +13,12 @@ jobs:
 
       - name: set tag
         run: |
-          IMAGE_TAG=$(git rev-parse --short=8 HEAD)
+          echo "IMAGE_TAG=$(git rev-parse --short=8 HEAD)" >> $GITHUB_ENV
 
       - name: before test
-        run: echo 'env(IMAGE_TAG)'
+        run: |
+          echo 'env(IMAGE_TAG)'
+          echo $IMAGE_TAG
 
       - name: checkout infra repository
         uses: actions/checkout@v4
