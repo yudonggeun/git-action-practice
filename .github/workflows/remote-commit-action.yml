@@ -40,3 +40,10 @@ jobs:
           cat ./charts/user/values.yaml
           cat ./charts/auth/values.yaml
 
+      - name: commit
+        run: |
+          git log -1
+          git add .
+          git commit --message "ci: update tag to $(IMAGE_TAG)"
+          git log -1
+
