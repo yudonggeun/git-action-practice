@@ -24,6 +24,7 @@ jobs:
 
       - name: edit infra repository tag
         run: |
+          echo 'env(IMAGE_TAG)'
           yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/server/values.yaml
           yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/user/values.yaml
           yq eval -i '.service.tag = env(IMAGE_TAG)' ./charts/auth/values.yaml
